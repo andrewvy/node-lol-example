@@ -4,19 +4,20 @@
 
 
 myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
-	$http({method: 'GET', url: '/api/name'}).
-	success(function(data, status, headers, config) {
-    	$scope.name = data.name;
-  	}).
-  	error(function(data, status, headers, config) {
-    	$scope.name = 'Error!'
-  	});
-}]);
+    $scope.submit = function(){
+	var post = $http({
+	    method: 'POST',
+	    url: '/api/summoner/',
+	    data: {name: $scope.summonerName},
+	    headers: {'Content-Type': 'application/json'}
+	    });
 
-myApp.controller('MyCtrl1', ['$scope', '$http', function($scope, http) {
-
-}]);
-
-myApp.controller('MyCtrl2', ['$scope', '$http', function($scope, http) {
-
+	// Returns promise, updates global $scope
+	post.success(function(res){
+		$scope.summonerDataLevel = res.summonerLevel;
+		$scope.summonerDataAcctId = res.summonerAcctId;
+		$scope.summonerDataSummonerId = res.summonerId;
+	});
+	$scope.summonerName = '';
+    };
 }]);
