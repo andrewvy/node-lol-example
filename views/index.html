@@ -6,10 +6,12 @@
 		<meta charset="utf-8">
 		<base href="/">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Danny Dalton</title>
+		<title>Summoner Lookup</title>
 		<meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="/css/app.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="/css/base.css">
+	<link rel="stylesheet" href="/css/layout.css">
+	<link rel="stylesheet" href="/css/skeleton.css">
         <script type="text/javascript" src="js/lib/angular/angular.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/services.js"></script>
@@ -18,17 +20,24 @@
         <script type="text/javascript" src="js/directives.js"></script>
 	</head>
 	<body>
-		<div ng-controller="AppCtrl">
-			<h2>Hello {{name}}</h2>
-			<ul class="menu">
-				<li><a href="view1">view1</li>
-				<li><a href="view2">view2</a></li>
-			</ul>
-			<div ng-view>
+		<div class="container" ng-controller="AppCtrl">
+		  <div class="sixteen columns">
+		    <h1 class="remove-bottom">Summoner Lookup</h1>
+		    <h5>Created by iColor</h5>
+			<div ng-show="summonerDataAcctId">
+			  <h4>{{ summonerDataName }}</h4>
+			  <p>Summoner Level: {{ summonerDataLevel }}</p>
+			  <p>Summoner Account Id: {{ summonerDataAcctId }}</p>
+			  <p>Summoner Id: {{ summonerDataSummonerId }}</p>
 			</div>
 			<div>
-				Angular Seed App: v<span app-version></span>
+			  <form novalidate name ="summonerForm">
+			    <label for="summonerName">
+			    <input type="text" id="summonerName" ng-model="summonerName" placeholder="Enter summoner name here!" required/>
+			    <button ng-click="submit()" ng-disabled="summonerForm.$invalid">Search!</button></label>
+			  </form>
 			</div>
+		  </div>
 		</div>
 	</body>
 </html>
